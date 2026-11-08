@@ -61,11 +61,11 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
     var showSettings by remember { mutableStateOf(false) }
     var showLangSelector by remember { mutableStateOf(false) }
 
-    // 使用纯 Column 配合 statusBarsPadding 防止内容被状态栏遮挡
+    // 纯 Column 配合 statusBarsPadding 防止内容被状态栏遮挡
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF9F9F9)) // 浅色背景
+            .background(Color(0xFFF9F9F9))
             .statusBarsPadding()
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),
@@ -87,15 +87,15 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
             }
         }
 
-        // 2. 原文输入框（强制指定高度，防止被挤压）
+        // 2. 原文输入框（高度 150.dp，可自己修改）
         TextField(
             value = vm.sourceText,
             onValueChange = { vm.sourceText = it },
             label = "原文",
-            modifier = Modifier.fillMaxWidth().height(150.dp)
+            modifier = Modifier.fillMaxWidth().height(150.dp) // 👈 改这里调原文高度
         )
 
-        // 3. 目标语言选择器（自己画一个点击行，点击弹窗选择）
+        // 3. 目标语言选择器
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -116,7 +116,7 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
             }
         }
 
-        // 4. 操作按钮（均分宽度）
+        // 4. 操作按钮（均分宽度：翻译、复制、清空）
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -129,12 +129,20 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
             }
             Button(
                 onClick = {
-                    val cb = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    cb.setPrimaryClip(ClipData.newPlainText("译文", vm.translatedText))
+                    if (vm.translatedText.isNotBlank()) {
+                        val cb = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        cb.setPrimaryClip(ClipData.newPlainText("译文", vm.translatedText))
+                    }
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("复制译文")
+                Text("复制")
+            }
+            Button(
+                onClick = { vm.clear() }, // 调用清空方法
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("清空")
             }
         }
 
@@ -147,17 +155,17 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
             )
         }
 
-        // 6. 译文输出框
+        // 6. 译文输出框（高度 200.dp，可自己修改）
         TextField(
             value = vm.translatedText,
             onValueChange = {},
             label = "译文",
-            modifier = Modifier.fillMaxWidth().height(200.dp),
+            modifier = Modifier.fillMaxWidth().height(200.dp), // 👈 改这里调译文高度
             readOnly = true
         )
     }
 
-    // 设置弹窗（使用原生 Dialog，保证一定弹得出来）
+    // 设置弹窗
     if (showSettings && vm.settings != null) {
         SettingsDialog(
             settings = vm.settings!!,
