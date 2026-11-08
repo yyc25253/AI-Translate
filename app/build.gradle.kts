@@ -7,7 +7,11 @@ plugins {
 android {
     namespace = "com.example.miuixtranslator"
     compileSdk = 37
-
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
+    }
     defaultConfig {
         applicationId = "com.example.miuixtranslator"
         minSdk = 26
@@ -27,7 +31,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true }
 }
 
