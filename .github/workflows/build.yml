@@ -21,7 +21,7 @@ jobs:
           gradle-version: "8.13"
 
       - name: Build Release APK
-        run: gradle assembleRelease --no-daemon
+        run: gradle assembleRelease --no-daemon --continue
 
       - uses: softprops/action-gh-release@v2
         with:
