@@ -156,4 +156,11 @@ class TranslatorViewModel : ViewModel() {
         job?.cancel()
         isTranslating = false
     }
+    fun clear() {
+        job?.cancel()
+        isTranslating = false
+        sourceText = ""
+        translatedText = ""
+        errorMessage = null
+    }
 }
