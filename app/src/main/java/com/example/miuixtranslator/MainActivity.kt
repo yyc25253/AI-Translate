@@ -92,7 +92,7 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
             value = vm.sourceText,
             onValueChange = { vm.sourceText = it },
             label = "原文",
-            modifier = Modifier.fillMaxWidth().height(150.dp) // 👈 改这里调原文高度
+            modifier = Modifier.fillMaxWidth().height(200.dp) // 👈 改这里调原文高度
         )
 
         // 3. 目标语言选择器
@@ -160,7 +160,7 @@ fun AppScreen(vm: TranslatorViewModel = viewModel()) {
             value = vm.translatedText,
             onValueChange = {},
             label = "译文",
-            modifier = Modifier.fillMaxWidth().height(200.dp), // 👈 改这里调译文高度
+            modifier = Modifier.fillMaxWidth().height(300.dp), // 👈 改这里调译文高度
             readOnly = true
         )
     }
