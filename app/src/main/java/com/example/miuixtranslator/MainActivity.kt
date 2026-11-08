@@ -25,7 +25,7 @@ import top.yukonga.miuix.kmp.basic.Button
 import top.yukonga.miuix.kmp.basic.Scaffold
 import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.basic.TextField
-import top.yukonga.miuix.kmp.extra.SuperDialog
+import top.yukonga.miuix.kmp.overlay.OverlayDialog
 import top.yukonga.miuix.kmp.preference.OverlayDropdownPreference
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 import top.yukonga.miuix.kmp.theme.ThemeController
@@ -119,7 +119,7 @@ fun SettingsDialog(settings: SettingsStore, onDismiss: () -> Unit) {
     var model by remember { mutableStateOf(settings.model) }
     var template by remember { mutableStateOf(settings.promptTemplate) }
 
-    SuperDialog(
+    OverlayDialog(
         title = "API 设置",
         show = true,
         onDismissRequest = onDismiss
